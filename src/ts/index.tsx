@@ -2,5 +2,10 @@ import reactDOM from "react-dom/client";
 import App from "./comps/App";
 import "../sass/main.scss"
 
-const root = reactDOM.createRoot(document.getElementById("root") as HTMLElement)
-root.render(<App/>)
+async function loadApp() {
+    const app = await App();
+    const root = reactDOM.createRoot(document.getElementById("root") as HTMLElement)
+    root.render(app)
+}
+
+loadApp();

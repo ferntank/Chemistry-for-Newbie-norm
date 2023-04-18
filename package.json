@@ -4,7 +4,9 @@
   "description": "",
   "main": "./src/ts/index.tsx",
   "scripts": {
-    "build": "webpack --mode development",
+    "build": "npm run build:backend && npm run build:webpack",
+    "build:webpack": "webpack --mode development",
+    "build:backend": "cd backend && wasm-pack build --target web --out-dir pkg",
     "release": "webpack --mode production",
     "test": "npm run build && serve ./public"
   },
@@ -24,6 +26,7 @@
     "webpack-dev-server": "^4.13.2"
   },
   "dependencies": {
+    "backend": "file:backend/pkg",
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
     "react": "^18.2.0",
