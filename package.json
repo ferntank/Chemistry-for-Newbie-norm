@@ -4,11 +4,13 @@
   "description": "",
   "main": "./src/ts/index.tsx",
   "scripts": {
-    "build": "npm run build:backend && npm run build:webpack",
-    "build:webpack": "webpack --mode development",
-    "build:backend": "cd backend && wasm-pack build --target web --out-dir pkg",
-    "release": "webpack --mode production",
-    "test": "npm run build && serve ./public"
+    "build:wptest": "webpack --mode development",
+    "build:wpprod": "webpack --mode production",
+    "build:backend": "cd backend && npx wasm-pack build --target web --out-dir pkg",
+    "debug": "npm run build:backend && npm run build:wptest",
+    "release": "npm run build:backend && npm run build:wpprod",
+    "serve": "npx serve ./public",
+    "test": "npm run debug && serve ./public"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +34,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.61.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "wasm-pack": "^0.11.0"
   }
 }

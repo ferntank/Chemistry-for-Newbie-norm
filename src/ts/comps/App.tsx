@@ -1,14 +1,9 @@
-import init, { add } from "backend";
-
-async function run(l: number, r: number) {
-    await init();
-    return add(l, r)
-}
+import init, { } from "backend";
 
 const App = async () => {
-    let ans: number = await run(23452345, 3498576);
+    await init();
     return (<>
-        <h1>The result is: {ans}</h1>
+        <h1>Hello, world!</h1>
     </>)
 }
 
