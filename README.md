@@ -2,7 +2,7 @@
 How to compile code:
 1. Install Node.js
 2. Install Rustup
-3. Install wasm-pack from official website (for Windows) or run:
+3. Install ```wasm-pack``` from official website (for Windows) or run:
 ```
 cargo install wasm-pack
 ```
