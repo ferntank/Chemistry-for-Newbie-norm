@@ -6,7 +6,7 @@ pub fn check_if_exists() {
 }
 
 #[wasm_bindgen]
-pub fn reaction() {
-
+pub fn test() -> String {
+    String::from("Backend works!")
 }
 

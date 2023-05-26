@@ -1,16 +1,48 @@
-$prmColor: #4d88ff;
+$prmColor: #ff4228;
 $prmDarker: #354f85;
 
 $darkGray: #292f33;
 $lightGray: #66757f;
 
-html, body, #root {
+$tec: #4d88ff; // temporary element color
+
+html, body, #root, #theme-changer {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
     position: fixed;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0;
-	padding: 0;
-    float: top;
+    padding: 0;
+    background-color: $prmColor;
+}
+
+#root {
+    transition: background-color .5s ease;
+    -webkit-transition: background-color .5s ease;
+    -moz-transition: background-color .5s ease;
+    -ms-transition: background-color .5s ease;
+    -o-transition: background-color .5s ease;
+}
+
+#theme-changer {
+    float: right;
+    right: 0;
+    height: 100vh;
+    width: 20vmin;
+    background-color: $tec;
+    z-index: -10;
+    display:block;
+}
+
+#main-header {
+    font-weight: 500;
+    font-size: 10vmin;
+    text-align: center;
+    float: center;
+    transition: color .5s ease;
+    -webkit-transition: color .5s ease;
+    -moz-transition: color .5s ease;
+    -ms-transition: color .5s ease;
+    -o-transition: color .5s ease;
 }

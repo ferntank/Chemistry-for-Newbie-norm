@@ -1,14 +1,13 @@
 import React from "react";
-import init, { check_if_exists, reaction } from "backend";
-import { theme } from "./theme";
+//@ts-ignore
+import init, { test } from "backend";
+import ThemeChanger from "./comps/ThemeChanger";
 
 export default async function App() {
     await init();
-    const root = document.getElementById("root") as HTMLElement;
-    root.style.backgroundColor = theme.isLight?"#eeeeee":"#212121";
-    return (
-        <React.Fragment>
-            
-        </React.Fragment>
-    )
+    console.log(test())
+    return <React.Fragment>
+        <ThemeChanger/>
+        <h1 id="main-header">Chemistry Helper</h1>
+    </React.Fragment>
 }
