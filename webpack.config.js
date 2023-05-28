@@ -1,9 +1,11 @@
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-
+const webpack = require('webpack');
+const webpackEnv = process.env.NODE_ENV || 'development';
 
 module.exports = {
-	entry: "./src/ts/index.ts",
+	mode: webpackEnv,
+	entry: "./src/ts/index.web.ts",
 	devtool: "inline-source-map",
 	output: {
 		filename: "bundle.js",
@@ -13,8 +15,8 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
-				exclude: /node_modules/,
+				test: /\.(ts|tsx|js|mjs|jsx)?$/,
+				exclude: [/node_modules/, /backend/],
 				use: "ts-loader"
 			},
 			{
@@ -45,12 +47,25 @@ module.exports = {
 		]
 	},
 	resolve: {
-		extensions: [".tsx", ".ts", ".js"]
-	},
+		extensions: [
+		  '.web.tsx',
+		  '.web.ts',
+		  '.tsx',
+		  '.ts',
+		  '.web.jsx',
+		  '.web.js',
+		  '.jsx',
+		  '.js',
+		],
+		alias: Object.assign({
+		  'react-native$': 'react-native-web',
+		}),
+	  },
 	plugins: [
 		new HTMLWebpackPlugin({
 			template: "./src/index.html",
 			favicon: "./src/assets/ico/molecule.ico"
-		})
+		}),
+		new webpack.HotModuleReplacementPlugin()
 	]
 }

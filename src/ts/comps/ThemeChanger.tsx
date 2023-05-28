@@ -1,47 +1,61 @@
 import React from "react";
 import Theme from "../theme";
 
-let loaded: boolean = false;
-const theme = new Theme;
-
-export default class ThemeChanger extends React.Component {
-    props:any;s0:boolean;s1:boolean;d:'up'|'down'|'stay';
-    constructor(props: any){super(props);this.s0=false;this.s1=false;this.d='stay'};
-    refreshElement():React.ReactElement{React.useEffect(()=>{theme.refresh();loaded=true}, []);return<></>};
-    debug():void{if(loaded){(document.getElementById('theme-changer') as HTMLElement).innerHTML=this.d}};
-    render(): React.ReactElement {
-        let touches: React.TouchList;
-        let maxChange: number = 0;
-        return <div
-            id='theme-changer'
-            onTouchStart={(event)=>{touches=event.targetTouches;}}
-            onTouchMove={()=>{}}
-            onTouchEnd={(event)=>{
-
-                let ct: React.TouchList = event.changedTouches;
-                for (let i=0; i<touches.length; i++) {
-                    let cv: number = ct.identifiedTouch(touches[i].identifier).pageY;
-                    if (Math.abs(cv) > Math.abs(maxChange)) {
-                        maxChange = cv;
-                    }
-                };
-                this.d = maxChange==0?'stay':maxChange<0?'up':'down';
-                if (this.d != 'stay') {
-                    theme.toggle();
-                    animate(this.d);
-                    this.d = 'stay';
-                };
-            }}
-
-            onMouseEnter={()=>{this.s0=true}}
-            onWheel={(event)=>{const y=event.deltaY;y==0?{}:this.d=y<0?'up':'down';this.s1=true}}
-            onMouseLeave={()=>{if(this.s0==true&&this.s1==true){this.s0=false;this.s1=false;theme.toggle();animate(this.d)}this.d='stay'}}
-        >
-            <this.refreshElement/>
+export default class ThemeChanger extends React.Component<{}, {}, void> {
+    private theme: Theme;
+    private touch: React.Touch | undefined;
+    private wheelY: number | undefined;
+    constructor(props: {}) {
+        super(props);
+        this.theme = new Theme;
+    };
+    inner(props: {
+        theme: Theme,
+        oW: React.WheelEventHandler<HTMLDivElement>,
+        oML: React.MouseEventHandler<HTMLDivElement>,
+        oTS: React.TouchEventHandler<HTMLDivElement>,
+        oTE: React.TouchEventHandler<HTMLDivElement>
+    }): React.ReactElement<void, string> {
+        React.useEffect(() => props.theme.refresh(), []);
+        return <div id='theme-changer' onWheel={props.oW} onMouseLeave={props.oML} onTouchStart={props.oTS} onTouchEnd={props.oTE}>
+            <h1 id='theme-name'></h1>
         </div>
-    }
+    };
+    render(): React.ReactElement<void, string> {
+        return <this.inner
+            theme={this.theme}
+            oW={event => this.wheelY = event.deltaY}
+            oML={() => this.mouseLeave()}
+            oTS={event => {if (this.touch === undefined) this.touch = event.targetTouches[0]}}
+            oTE={event => this.touchEnd(event.changedTouches)}
+        />
+    };
+    private mouseLeave(y: number | void): void {
+        if (y === undefined) {
+            y = this.wheelY;
+            this.wheelY = undefined;
+        };
+        if (y && this.theme.loaded) {
+            y<0?this.animateDown():this.animateUp();
+            this.theme.toggle();
+        };
+    };
+    private touchEnd(changed: React.TouchList): void {
+        if (this.touch) {
+            let y: number | undefined;
+            for (let i=0; i<changed.length; i++) {
+                if (this.touch.identifier == changed[i].identifier) {
+                    y = changed[i].pageY - this.touch.pageY;
+                };
+            };
+            this.mouseLeave(y);
+            this.touch = undefined;
+        };
+    };
+    private animateUp(): void {
+        // add animation
+    };
+    private animateDown(): void {
+        // add animation
+    };
 }
-
-function animate(d: 'up'|'down'|'stay') {
-    
-};

@@ -11,13 +11,13 @@ html, body, #root, #theme-changer {
     width: 100vw;
     overflow: hidden;
     position: fixed;
+}
+
+html, body, #root {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     background-color: $prmColor;
-}
-
-#root {
     transition: background-color .5s ease;
     -webkit-transition: background-color .5s ease;
     -moz-transition: background-color .5s ease;

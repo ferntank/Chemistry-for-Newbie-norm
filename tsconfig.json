@@ -5,21 +5,21 @@
 		"target": "ES2015",
 		"moduleResolution": "nodenext",
 		"jsx": "react-jsx",
-
 		"noEmit": false,
-		"allowJs": true,
+		"allowJs": false,
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
 		"noFallthroughCasesInSwitch": true,
 		"resolveJsonModule": true,
-		"skipLibCheck": true,
-
+		"skipLibCheck": false,
 		"strict": true,
 		"sourceMap": true,
 		"noImplicitAny": true,
 		"outDir": "./public/",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
 	},
 	"include": [
 		"src/ts",
